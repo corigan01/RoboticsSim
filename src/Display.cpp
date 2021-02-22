@@ -18,7 +18,7 @@ Display::Display(int sizeX, int sizeY, std::string Displayname) {
 
     SetTargetFPS(60);
 
-    robo.maxspeed(.07);
+    robo.maxspeed(.20);
 
 }
 

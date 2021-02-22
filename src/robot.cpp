@@ -47,6 +47,10 @@ void robot::draw() {
                 ((Val.x / cos(rotation) * 100 + 1) * cos(rotation) + PosS.x),
                 ((Val.y / sin(rotation) * 100 + 1) * sin(rotation) + PosS.y)
                 }, autoB 2, GREEN);
+    DrawLineEx({PosS.x, PosS.y}, {
+                (100 * cos(rotation) + PosS.x),
+                (100 * sin(rotation) + PosS.y)
+                }, autoB 2, BLUE);
 
 
     
@@ -88,15 +92,39 @@ void robot::update() {
         Val.y = 0;
     }
 
- 
-    
-
-
     Val.x += Acl.x;
     Val.y += Acl.y;
 
+    
+
+    float rad = MaxSpeed;
+
+    float Xp = Val.x, Xc = 0;
+    float Yp = Val.y, Yc = 0;
+
+    float Xmax = 0, Ymax = 0;
+
+    float DPoint = sqrt( (Xp * Xp) + (Yp * Yp) );
+
+    std::cout << DPoint << " : " << std::endl; 
+
+    if (DPoint <= rad) {
+        Xmax = Xp;
+        Ymax = Yp;
+    }
+    if (DPoint > rad) {
+        Xmax = ( (Xp * rad)   /   DPoint  );
+        Ymax = ( (Yp * rad)    /   DPoint );
+    }
+    
+
+    Val.x = Xmax;
+    Val.y = Ymax;
+    
     Pos.x += Val.x;
     Pos.y += Val.y;
+
+    
 
     
 
