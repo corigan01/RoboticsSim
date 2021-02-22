@@ -37,6 +37,20 @@ class robot {
 
     Model robotModel;
 
+    // This is the positions the robot nees to hope to get to
+    // All positions will have a pid loop to try and get to the next one
+    // This will have the goal Angle and Goal speed 
+    std::vector<Vector2> AutoM;
+
+    // This will have the ball pos
+    std::vector<Vector2> BallPos {
+      {10.f, 2.f},
+      {14.f, 5.f},
+      {18.f, 2.f}  
+    };
+
+    int workingBall = 0;
+
 };
 
 

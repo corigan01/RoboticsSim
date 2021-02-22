@@ -1,4 +1,7 @@
 #include "Display.h"
+
+
+
 #define autoB float((((float)GetScreenWidth()/1920.0f) + ((float)GetScreenHeight() / 1080.0f)) / 2.0f) *
 
 Display::Display(int sizeX, int sizeY, std::string Displayname) {
@@ -36,6 +39,8 @@ void Display::draw(){
 
         DrawGrid(1000, 0.1f);
 
+        
+
         robo.draw();
 
 
@@ -53,6 +58,7 @@ void Display::draw(){
          DrawCircleV(PosS, autoB 10, BLUE);
 
 
+
         EndDrawing();
 
         NMouse = mouse;
@@ -64,23 +70,30 @@ void Display::update(){
     
     UpdateCamera(&camera);
 
+    if (AutoCode) {
 
-    Vector2 PosAdd = {0, 0};
-
-    if (IsKeyDown(KEY_I)) {
-        PosAdd.x = 1;
-    }
-    if (IsKeyDown(KEY_J)) {
-        PosAdd.y = -1;
-    }
-    if (IsKeyDown(KEY_K)) {
-        PosAdd.x = -1;
-    }
-    if (IsKeyDown(KEY_L)) {
-        PosAdd.y = 1;
     }
 
-    robo.drivetrain(PosAdd.x, PosAdd.y);
+    else {
+        Vector2 PosAdd = {0, 0};
+
+        if (IsKeyDown(KEY_I)) {
+            PosAdd.x = 1;
+        }
+        if (IsKeyDown(KEY_J)) {
+            PosAdd.y = -1;
+        }
+        if (IsKeyDown(KEY_K)) {
+            PosAdd.x = -1;
+        }
+        if (IsKeyDown(KEY_L)) {
+            PosAdd.y = 1;
+        }
+
+        robo.drivetrain(PosAdd.x, PosAdd.y);
+    }
+
+    
 
 
     

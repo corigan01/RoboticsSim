@@ -29,6 +29,9 @@ class Display {
 
     robot robo;
 
+    bool AutoCode = false;
+
+
     
 
 

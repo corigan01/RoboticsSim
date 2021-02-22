@@ -2,6 +2,7 @@
 #include <math.h>
 #include <raymath.h>
 
+
 #define autoB float((((float)GetScreenWidth()/1920.0f) + ((float)GetScreenHeight() / 1080.0f)) / 2.0f) *
 
 robot::robot() {
@@ -33,7 +34,9 @@ void robot::draw() {
     DrawLine3D({Pos.x, 1, Pos.y}, {Pos.x, 1, Pos.y + 2}, MAGENTA);
     DrawLine3D({Pos.x, 1, Pos.y}, {Pos.x, 1, Pos.y - 2}, MAGENTA);
 
-    
+    for (auto i : BallPos) {
+            DrawSphere({i.x , 1, i.y}, 0.5, RAYWHITE);
+    }
 
     EndMode3D();
     
@@ -41,6 +44,12 @@ void robot::draw() {
 
     //DrawCircle(Pos.x - 10, Pos.y - (GetScreenHeight() -  (autoB 520)), autoB 100, RED);
     Vector2 PosS = { (Pos.x * 10 - 10) + ((autoB 500) / 2) , (Pos.y * 10) + (GetScreenHeight() -  (autoB 520)) + ((autoB 500) / 2) };
+    
+    for (auto i : BallPos) {
+        Vector2 PosB = { (i.x * 10 - 10) + ((autoB 500) / 2) , (i.y * 10) + (GetScreenHeight() -  (autoB 520)) + ((autoB 500) / 2) };
+
+        DrawCircleV(PosB, autoB 15, WHITE);
+    }
 
     DrawCircleV(PosS, autoB 15, RED);
     DrawLineEx({PosS.x, PosS.y}, {
@@ -72,10 +81,10 @@ void robot::update() {
     }
 
     if (Val.y >= 0.005) {
-        Val.y -= 0.001;
+        Val.y -= 0.01;
     }
     else if (Val.y <= 0.005) {
-        Val.y += 0.001;
+        Val.y += 0.01;
     }
 
     if (Val.x > 0.001 && Val.x < 0.06) {
@@ -106,15 +115,14 @@ void robot::update() {
 
     float DPoint = sqrt( (Xp * Xp) + (Yp * Yp) );
 
-    std::cout << DPoint << " : " << std::endl; 
 
     if (DPoint <= rad) {
         Xmax = Xp;
         Ymax = Yp;
     }
     if (DPoint > rad) {
-        Xmax = ( (Xp * rad)   /   DPoint  );
-        Ymax = ( (Yp * rad)    /   DPoint );
+        Xmax = ( (Xp * rad)   /   DPoint );
+        Ymax = ( (Yp * rad)   /   DPoint );
     }
     
 
